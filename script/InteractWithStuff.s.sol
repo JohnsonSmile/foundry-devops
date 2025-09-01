@@ -7,7 +7,10 @@ import {Stuff} from "./DeployStuff.s.sol";
 
 contract InteractWithStuff is Script {
     function run() external view {
-        address mostRecent = DevOpsTools.get_most_recent_deployment("DeployStuff", block.chainid);
+        address mostRecent = DevOpsTools.mustLoadContract(
+            "DeployStuff",
+            block.chainid
+        );
         uint256 value = Stuff(mostRecent).getSeven();
         assert(value == 7);
     }
